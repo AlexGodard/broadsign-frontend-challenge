@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { debounce, handleErrors, throttle } from '../../../helpers';
-import Gallery from "../components/Gallery";
+import { debounce, handleErrors, throttle } from "../../../helpers";
+import Gallery from "../components/Gallery/Gallery";
 
 const UNSPLASH_API_URL = "https://api.unsplash.com/search/photos";
 
@@ -12,15 +12,17 @@ class Read extends Component {
     images: null,
     error: null,
     loading: null,
-    totalPages: null,
+    totalPages: null
   };
 
   handleInputChange = event => {
     this.setState({ searchTerm: event.target.value });
     currentPage = 0;
 
-    // Only send a request when the user has stopped typing for one second
-    this.fetchNewImagesDebounced(event.target.value);
+    if (event.target.value !== "") {
+      // Only send a request when the user has stopped typing for one second
+      this.fetchNewImagesDebounced(event.target.value);
+    }
   };
 
   handleBottomReached = event => {
@@ -53,18 +55,16 @@ class Read extends Component {
       }
     )
     .then(handleErrors)
-    .then(
-      result => {
-        this.setState({
-          error: null,
-          images: firstFetch
-            ? result.results
-            : [].concat(this.state.images).concat(result.results),
-          loading: false,
-          totalPages: result.total_pages,
-        });
-      },
-    )
+    .then(result => {
+      this.setState({
+        error: null,
+        images: firstFetch
+          ? result.results
+          : [].concat(this.state.images).concat(result.results),
+        loading: false,
+        totalPages: result.total_pages
+      });
+    })
     .catch(error => {
       this.setState({
         error,

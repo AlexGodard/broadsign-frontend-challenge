@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Gallery.css";
-import { chunk, debounce } from "../../../helpers";
-import logo from "../../../logo.svg";
+import { chunk } from "../../../../helpers";
+import logo from "../../../../logo.svg";
 
 const getNumberOfColumns = () => {
   if (window.innerWidth < 480) {
@@ -21,7 +21,6 @@ class Gallery extends Component {
     imageChunks: []
   };
 
-
   // This lifecycle method is appropriate here, as the state depends on changes in props over time
   static getDerivedStateFromProps(props, state) {
     const oldChunks = state.imageChunks;
@@ -31,6 +30,7 @@ class Gallery extends Component {
     );
     const gotNewImages = props.images && props.images.length !== oldImageCount;
 
+    // Happens when fetching more
     if (gotNewImages) {
       // Concatenates the new images in the appropriate column (chunk) so the old ones stay where they are
       const newImages = props.images.slice(oldImageCount);
@@ -47,6 +47,8 @@ class Gallery extends Component {
     }
 
     const colsChanged = oldChunks.length !== state.numberOfColumns;
+
+    // Happens when resizing and hitting a breakpoint
     if (colsChanged && props.images) {
       // Recompute the chunks
       return {
@@ -56,6 +58,12 @@ class Gallery extends Component {
         )
       };
     }
+
+    // Happens when searching a new term
+    if (!props.images) {
+      return { imageChunks: [] };
+    }
+
     return {};
   }
 
@@ -115,7 +123,7 @@ class Gallery extends Component {
             <img src={logo} className="App-logo" alt="logo" />
           </div>
         )}
-        {error && <h4 className="error-message">An error occurred: {error}</h4>}
+        {error && <h4 className="error-message">An error occurred: {error.message || error}</h4>}
       </React.Fragment>
     );
   }
