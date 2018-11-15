@@ -1,5 +1,14 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Required environment variables
+The following environment variables are required so the app functions properly. 
+
+It is recommended to put them inside a `.env.local` file at the project root so react-scripts (from Create-react-app) automatically injects them at build time (note that they must start with the `REACT_APP` prefix to be injected).
+
+|   Environment variable  | Usage                                                                                                       |   Type  | Default |     Example value     |
+|:-----------------------:|-------------------------------------------------------------------------------------------------------------|:-------:|:-------:|:---------------------:|
+| `REACT_APP_UNSPLASH_ACCESS_KEY`       | The access key given after registering your app on https://unsplash.com/join                                                                                            | `string`  |         | `e69daa65b1d6a0b5e93ee50fba36a7305d5b9ccc625411de4fea1cff6946a03a` |
+
 ## Available Scripts
 
 In the project directory, you can run:

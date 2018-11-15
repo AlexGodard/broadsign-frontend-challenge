@@ -1,0 +1,61 @@
+.input-large {
+  text-align: center;
+  min-width: 320px;
+  width: 18vw;
+  min-height: 24px;
+  height: calc(1em + 3vh);
+  font-size: calc(1em + 2vh);
+  box-sizing: border-box;
+  border: 2px solid;
+  border-radius: 16px;
+}
+
+#image-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2em;
+}
+
+.image {
+  /* Small hack to add a bit of left-right padding. I can't seem to do so in any other way */
+  width: 99%;
+}
+
+.column {
+  flex: 25%;
+  max-width: 25%;
+}
+
+.error-message {
+  color: red;
+}
+
+@media screen and (max-width: 1280px) {
+  .column {
+    flex: 33%;
+    max-width: 33%;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .column {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .column {
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
